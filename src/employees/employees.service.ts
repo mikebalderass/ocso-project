@@ -1,18 +1,19 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateEmployeeDto } from "./dto/create-employee.dto";
 import { UpdateEmployeeDto } from "./dto/update-employee.dto";
+import { v4 as uuid } from "uuid";
 
 @Injectable()
 export class EmployeesService {
   private readonly employees: CreateEmployeeDto[] = [
     {
-      id: 1,
+      id: uuid(),
       name: "John",
       lastName: "Doe",
       phone: "1234567890",
     },
     {
-      id: 2,
+      id: uuid(),
       name: "Jane",
       lastName: "Doe",
       phone: "0987654321",
@@ -20,7 +21,7 @@ export class EmployeesService {
   ];
 
   create(createEmployeeDto: CreateEmployeeDto) {
-    createEmployeeDto.id = this.employees.length + 1;
+    createEmployeeDto.id = uuid();
     this.employees.push(createEmployeeDto);
 
     return createEmployeeDto;
@@ -30,11 +31,11 @@ export class EmployeesService {
     return this.employees;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.employees.find((employee) => employee.id === id);
   }
 
-  update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
+  update(id: string, updateEmployeeDto: UpdateEmployeeDto) {
     const employee = this.employees.find((employee) => employee.id === id);
 
     if (!employee) {
@@ -51,7 +52,7 @@ export class EmployeesService {
     return this.employees[index];
   }
 
-  remove(id: number) {
+  remove(id: string) {
     this.employees.splice(
       this.employees.findIndex((employee) => employee.id === id)
     );
