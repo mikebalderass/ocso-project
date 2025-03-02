@@ -65,20 +65,20 @@ export class ProductsService {
   async update(id: string, updateProductDto: UpdateProductDto) {
     const productToUpdate = await this.productRepository.preload({
       productId: id,
-      ...updateProductDto
-    })
-    if (!productToUpdate) throw new NotFoundException()
+      ...updateProductDto,
+    });
+    if (!productToUpdate) throw new NotFoundException();
     this.productRepository.save(productToUpdate);
     return productToUpdate;
   }
 
   remove(id: string) {
-    this.findOne(id)
+    this.findOne(id);
     this.productRepository.delete({
       productId: id,
-    })
+    });
     return {
-      message: `Objeto con id ${id} eliminado`
-    }
+      message: `Objeto con id ${id} eliminado`,
+    };
   }
 }
