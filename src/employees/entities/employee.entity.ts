@@ -1,20 +1,33 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Location } from "src/locations/entities/location.entity";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 @Entity()
 export class Employee {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   employeeId: string;
-  @Column('text')
+  @Column("text")
   name: string;
-  @Column('text')
+  @Column("text")
   lastName: string;
-  @Column('text')
+  @Column("text")
   phoneNumber: string;
-  @Column('text')
+  @Column("text")
   email: string;
   @Column({
-    type: 'text',
-    nullable: true
+    type: "text",
+    nullable: true,
   })
   photoUrl: string;
+
+  @ManyToOne(() => Location, (location) => location.employees)
+  @JoinColumn({
+    name: "locationId",
+  })
+  location: Location;
 }
