@@ -7,9 +7,11 @@ import { Location } from "./entities/location.entity";
 
 @Injectable()
 export class LocationsService {
-  constructor(private locationRepository: Repository<Location>) {}
-
-  @InjectRepository(Location)
+  constructor(
+    @InjectRepository(Location)
+    private locationRepository: Repository<Location>
+  ) {}
+  
   create(createLocationDto: CreateLocationDto) {
     return this.locationRepository.save(createLocationDto);
   }
