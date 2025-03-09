@@ -3,11 +3,13 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Provider {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   providerId: string;
-  @Column('text')
+  @Column("text")
   providerName: string;
-  @Column('text')
+  @Column("text", {
+    unique: true,
+  })
   providerEmail: string;
   @Column({
     type: "text",
@@ -15,5 +17,5 @@ export class Provider {
   })
   providerPhoneNumber: string;
   @OneToMany(() => Product, (photo) => photo.provider)
-  products: Product[]
+  products: Product[];
 }
