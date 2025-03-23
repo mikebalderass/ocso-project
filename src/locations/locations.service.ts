@@ -9,9 +9,9 @@ import { Location } from "./entities/location.entity";
 export class LocationsService {
   constructor(
     @InjectRepository(Location)
-    private locationRepository: Repository<Location>
+    private locationRepository: Repository<Location>,
   ) {}
-  
+
   create(createLocationDto: CreateLocationDto) {
     return this.locationRepository.save(createLocationDto);
   }
@@ -25,6 +25,7 @@ export class LocationsService {
       locationId: id,
     });
     if (!location) throw new NotFoundException("Location not found");
+    return location;
   }
 
   async update(id: number, updateLocationDto: UpdateLocationDto) {
