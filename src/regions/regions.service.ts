@@ -13,7 +13,7 @@ import { Repository } from "typeorm";
 export class RegionsService {
   constructor(
     @InjectRepository(Region)
-    private regionRepository: Repository<Region>
+    private regionRepository: Repository<Region>,
   ) {}
 
   create(createRegionDto: CreateRegionDto) {
@@ -29,6 +29,7 @@ export class RegionsService {
       regionId: id,
     });
     if (!region) throw new NotFoundException("Region not found");
+    return region;
   }
 
   async update(id: number, updateRegionDto: UpdateRegionDto) {

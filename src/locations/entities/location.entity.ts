@@ -17,28 +17,31 @@ export class Location {
   @PrimaryGeneratedColumn("increment")
   locationId: number;
   @ApiProperty({
-    default: "OCSO Juriquilla"
+    default: "OCSO Juriquilla",
   })
   @Column("text")
   locationName: string;
   @ApiProperty({
-    default: "Avenida Tal, S/N, 76220"
+    default: "Avenida Tal, S/N, 76220",
   })
   @Column("text")
   locationAddress: string;
   @ApiProperty({
-    default: [12, 12]
+    default: [12, 12],
   })
   @Column("simple-array")
   locationLatLng: number[];
 
+  @ApiProperty({
+    default: "5bd1840b-ba3e-4975-8afa-efa9bc8e9236",
+  })
   @OneToOne(() => Manager, {
     eager: true,
   })
   @JoinColumn({
     name: "managerId",
   })
-  manager: Manager;
+  manager: Manager | string;
   @ManyToOne(() => Region, (region) => region.locations)
   @JoinColumn({
     name: "regionId",
